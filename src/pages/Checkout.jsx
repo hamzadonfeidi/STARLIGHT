@@ -3,6 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { isFirebaseConfigured } from '../firebase';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { extractDominantColors } from '../utils/extractDominantColors';
+import { assetUrl } from '../utils/assetUrl';
 
 const Checkout = ({ setProductBgColors }) => {
   const location = useLocation();
@@ -35,7 +36,7 @@ const Checkout = ({ setProductBgColors }) => {
 
     let cancelled = false;
     if (product?.imageUrl) {
-      extractDominantColors(product.imageUrl).then((colors) => {
+      extractDominantColors(assetUrl(product.imageUrl)).then((colors) => {
         if (!cancelled) setProductBgColors(colors);
       });
     } else {
@@ -210,7 +211,7 @@ The buyer will pay on delivery.`;
           <div className="order-summary glass-pill">
             <h3 className="summary-title font-condensed">ORDER SUMMARY</h3>
             <div className="summary-item">
-              <img src={product.imageUrl} alt={product.name} className="summary-img" />
+              <img src={assetUrl(product.imageUrl)} alt={product.name} className="summary-img" />
               <div className="summary-details">
                 <span className="summary-name font-condensed">{product.name.toUpperCase()}</span>
                 <span className="summary-size font-condensed">SIZE: {selectedSize}</span>

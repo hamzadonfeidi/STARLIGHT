@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from '../firebase';
 import { mockProducts } from '../seed';
 import { extractDominantColors, prefetchDominantColors } from '../utils/extractDominantColors';
+import { assetUrl } from '../utils/assetUrl';
 
 const FloatingGallery = ({ setProductBgColors }) => {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ const FloatingGallery = ({ setProductBgColors }) => {
           const localData = localStorage.getItem('starlight_products');
           const parsed = localData ? JSON.parse(localData) : mockProducts;
           setProducts(parsed);
-          prefetchDominantColors(parsed.map((p) => p.imageUrl));
+          prefetchDominantColors(parsed.map((p) => assetUrl(p.imageUrl)));
           setLoading(false);
           return;
         }
@@ -28,11 +29,11 @@ const FloatingGallery = ({ setProductBgColors }) => {
           ...doc.data(),
         }));
         setProducts(items);
-        prefetchDominantColors(items.map((p) => p.imageUrl));
+        prefetchDominantColors(items.map((p) => assetUrl(p.imageUrl)));
       } catch (err) {
         console.error('Error loading products for gallery:', err);
         setProducts(mockProducts);
-        prefetchDominantColors(mockProducts.map((p) => p.imageUrl));
+        prefetchDominantColors(mockProducts.map((p) => assetUrl(p.imageUrl)));
       } finally {
         setLoading(false);
       }
@@ -80,14 +81,14 @@ const FloatingGallery = ({ setProductBgColors }) => {
             key={product.id}
             to={`/product/${product.id}`}
             className="product-card product-card-link"
-            onMouseEnter={() => handleProductHover(product.imageUrl)}
+            onMouseEnter={() => handleProductHover(assetUrl(product.imageUrl))}
             onMouseLeave={handleProductLeave}
-            onFocus={() => handleProductHover(product.imageUrl)}
+            onFocus={() => handleProductHover(assetUrl(product.imageUrl))}
             onBlur={handleProductLeave}
           >
             <div className="product-image-wrapper">
               <img
-                src={product.imageUrl}
+                src={assetUrl(product.imageUrl)}
                 alt={product.name}
                 className="product-image"
                 loading="lazy"

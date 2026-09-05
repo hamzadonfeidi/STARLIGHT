@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from '../firebase';
 import { mockProducts } from '../seed';
 import { extractDominantColors } from '../utils/extractDominantColors';
+import { assetUrl } from '../utils/assetUrl';
 
 const ProductDetail = ({ setProductBgColors }) => {
   const { id } = useParams();
@@ -57,7 +58,7 @@ const ProductDetail = ({ setProductBgColors }) => {
     }
 
     let cancelled = false;
-    extractDominantColors(product.imageUrl).then((colors) => {
+    extractDominantColors(assetUrl(product.imageUrl)).then((colors) => {
       if (!cancelled) setProductBgColors(colors);
     });
 
@@ -146,7 +147,7 @@ const ProductDetail = ({ setProductBgColors }) => {
         <div className="pd-images-stack">
           {galleryImages.map((img, idx) => (
             <div key={img + idx} id={`pd-image-${idx}`} className="pd-image-wrapper">
-              <img src={img} alt={`${product.name} - image ${idx + 1}`} className="pd-stacked-image" />
+              <img src={assetUrl(img)} alt={`${product.name} - image ${idx + 1}`} className="pd-stacked-image" />
             </div>
           ))}
         </div>
