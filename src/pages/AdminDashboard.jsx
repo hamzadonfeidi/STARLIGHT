@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from '../firebase';
+import { assetUrl } from '../utils/assetUrl';
 import { useAuth } from '../context/AuthContext';
 import { mockProducts } from '../seed';
 
@@ -329,7 +330,7 @@ const AdminDashboard = () => {
                   <tr key={prod.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} className="admin-table-row">
                     <td style={{ padding: '16px 24px' }}>
                       <img 
-                        src={prod.imageUrl || "/striped_pants.png"} 
+                        src={assetUrl(prod.imageUrl || "/striped_pants.png")}
                         alt={prod.name} 
                         style={{ width: '50px', height: '60px', objectFit: 'contain', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)' }}
                       />
