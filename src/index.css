@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@500;700&family=Syne:wght@600;800&display=swap');
+
+:root {
+  --bg-color: #CA2851; /* Deep Magenta */
+  --bg-gradient: linear-gradient(135deg, #CA2851 0%, #FFB173 55%, #FFE3B3 100%); /* Deep Magenta → Soft Orange → Light Cream */
+  --text-color: #f0f0f0;
+  --text-muted: #666666;
+  --accent: #ffffff;
+
+  /* Spacing scale */
+  --space-xs: clamp(0.5rem, 1.5vw, 0.75rem);
+  --space-sm: clamp(0.75rem, 2vw, 1rem);
+  --space-md: clamp(1rem, 3vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 4vw, 2.5rem);
+  --space-xl: clamp(2rem, 5vw, 4rem);
+
+  /* Layout */
+  --page-gutter: clamp(1rem, 4vw, 2.5rem);
+  --content-max: 1400px;
+  --header-offset: clamp(5.5rem, 12vw, 7.5rem);
+
+  /* Breakpoints (match common sm/md/lg/xl/2xl scale) */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+}
+
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  /* Use the gradient as the persistent page background to avoid flash/flicker */
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  /* Smoothly transition when product gradients change */
+  transition: background 0.6s ease, background-position 0.6s ease;
+  color: var(--text-color);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Syne', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.font-condensed {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Utility Components */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
